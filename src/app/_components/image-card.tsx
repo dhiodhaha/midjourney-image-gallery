@@ -1,17 +1,14 @@
-"use client";
-
-import { useState } from "react";
-
-export type ImageItem = {
-  id: string;
-  theme: string;
-  imageUrl: string;
-  midjourneyUrl: string;
-};
+import { useState, useEffect, useRef } from "react";
 
 export const ImageCard = ({ theme, imageUrl, midjourneyUrl }: ImageItem) => {
-  // Track whether the image has loaded
   const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current && imgRef.current.complete) {
+      setIsLoaded(true);
+    }
+  }, [imageUrl]);
 
   return (
     <div className="group relative break-inside-avoid mb-1">
@@ -22,9 +19,11 @@ export const ImageCard = ({ theme, imageUrl, midjourneyUrl }: ImageItem) => {
         )}
 
         <img
+          ref={imgRef}
           src={imageUrl}
           alt={theme}
           onLoad={() => setIsLoaded(true)}
+          onError={() => setIsLoaded(true)}
           className={`w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
