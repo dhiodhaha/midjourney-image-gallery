@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 export type ImageItem = {
   id: string;
   theme: string;
