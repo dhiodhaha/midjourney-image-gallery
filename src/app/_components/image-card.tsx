@@ -1,4 +1,13 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
+
+export type ImageItem = {
+  id: string;
+  theme: string;
+  imageUrl: string;
+  midjourneyUrl: string;
+};
 
 export const ImageCard = ({ theme, imageUrl, midjourneyUrl }: ImageItem) => {
   const [isLoaded, setIsLoaded] = useState(false);
